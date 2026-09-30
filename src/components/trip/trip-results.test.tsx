@@ -23,7 +23,7 @@ describe("TripResults", () => {
     expect(within(summary).getByText("16h")).toBeVisible()
     expect(within(summary).getByText("1d 5h")).toBeVisible()
     expect(within(summary).getByText("2")).toBeVisible()
-    expect(within(summary).getByText("1 fuel stops")).toBeVisible()
+    expect(within(summary).getByText("1 fuel stop")).toBeVisible()
   })
 
   it("displays the daily log count and per-day summaries", () => {
@@ -66,4 +66,24 @@ describe("TripResults", () => {
     expect(screen.getByText("St. Louis, Missouri, USA")).toBeVisible()
     expect(screen.getByText("Dallas, Dallas County, Texas, USA")).toBeVisible()
   })
+})
+
+
+it("uses singular labels for single generated counts", () => {
+  const singleLogResult = {
+    ...tripPlanFixture,
+    daily_logs: {
+      ...tripPlanFixture.daily_logs,
+      summary: {
+        ...tripPlanFixture.daily_logs.summary,
+        log_count: 1,
+      },
+      logs: tripPlanFixture.daily_logs.logs.slice(0, 1),
+    },
+  }
+
+  render(<TripResults result={singleLogResult} />)
+
+  expect(screen.getByText("1 ELD log sheet generated")).toBeVisible()
+  expect(screen.getByText("1 fuel stop")).toBeVisible()
 })
