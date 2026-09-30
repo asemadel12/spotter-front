@@ -3,11 +3,12 @@ import { useState } from "react"
 
 import { DailyLogSheet } from "@/components/eld/daily-log-sheet"
 import { EldLogTabs } from "@/components/eld/eld-log-tabs"
-import type { DailyLogsResult, TripPlanResponse } from "@/types/trip"
+import type { DailyLogsResult } from "@/types/eld"
+import type { TripLocations } from "@/types/trip"
 
 interface DailyEldLogsProps {
   dailyLogs: DailyLogsResult
-  locations: TripPlanResponse["locations"]
+  locations: TripLocations
 }
 
 export function DailyEldLogs({ dailyLogs, locations }: DailyEldLogsProps) {
