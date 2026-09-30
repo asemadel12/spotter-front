@@ -1,121 +1,45 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { AppHeader } from "@/components/layout/app-header"
+import { PlanningEmptyState } from "@/components/trip/planning-empty-state"
+import { PlanningLoadingState } from "@/components/trip/planning-loading-state"
+import { TripPlannerForm } from "@/components/trip/trip-planner-form"
+import { TripResults } from "@/components/trip/trip-results"
+import { usePlanTrip } from "@/hooks/use-plan-trip"
 
 function App() {
-  const [count, setCount] = useState(0)
+  const tripPlan = usePlanTrip()
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
+    <div className="min-h-screen bg-slate-50">
+      <AppHeader />
+      <main className="mx-auto max-w-[1480px] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+        <div className="mb-7 max-w-3xl">
+          <p className="text-sm font-semibold text-blue-700">Fleet operations</p>
+          <h1 className="mt-1 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+            Trip planning, with every duty hour accounted for.
+          </h1>
+          <p className="mt-3 text-base leading-7 text-slate-600">
+            Build a truck-ready route with an HOS schedule, operational stops,
+            and daily ELD log summaries from one validated trip request.
           </p>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+        <div className="grid items-start gap-6 lg:grid-cols-[360px_minmax(0,1fr)] xl:gap-8">
+          <TripPlannerForm
+            isPending={tripPlan.isPending}
+            onSubmit={(values) => tripPlan.mutateAsync(values)}
+          />
+          <section aria-label="Trip planning results" className="min-w-0">
+            {tripPlan.isPending ? (
+              <PlanningLoadingState />
+            ) : tripPlan.data ? (
+              <TripResults result={tripPlan.data} />
+            ) : (
+              <PlanningEmptyState />
+            )}
+          </section>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      </main>
+    </div>
   )
 }
 
