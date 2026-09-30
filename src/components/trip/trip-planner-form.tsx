@@ -54,7 +54,7 @@ export function TripPlannerForm({ isPending, onSubmit }: TripPlannerFormProps) {
   const {
     register,
     handleSubmit,
-    setValue,
+    reset,
     setError,
     clearErrors,
     formState: { errors },
@@ -84,9 +84,7 @@ export function TripPlannerForm({ isPending, onSubmit }: TripPlannerFormProps) {
   })
 
   const useSampleTrip = () => {
-    for (const [field, value] of Object.entries(SAMPLE_TRIP)) {
-      setValue(field as keyof TripPlanRequest, value, { shouldValidate: true })
-    }
+    reset(SAMPLE_TRIP)
     setRequestError(null)
   }
 
