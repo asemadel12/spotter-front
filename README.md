@@ -1,6 +1,6 @@
-# Spotter Trip Planner — Frontend
+# RouteLedger — Frontend
 
-React + TypeScript frontend for the Spotter full-stack developer assessment.
+RouteLedger is the React + TypeScript frontend built for the Spotter full-stack developer assessment.
 
 The application submits the four required trip inputs to the Django backend and renders the returned route, HOS schedule, operational stops, turn-by-turn directions, and FMCSA-style daily ELD log sheets.
 
