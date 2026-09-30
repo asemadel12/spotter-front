@@ -1,4 +1,4 @@
-import type { ApiErrorPayload } from "@/types/trip"
+import type { ApiErrorPayload } from "@/types/api"
 
 const DEFAULT_API_BASE_URL = "http://127.0.0.1:8000/api"
 
