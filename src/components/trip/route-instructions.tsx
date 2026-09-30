@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { formatDistanceMiles, formatDuration } from "@/lib/formatting"
-import type { RouteLeg } from "@/types/trip"
+import type { RouteLeg } from "@/types/route"
 
 interface RouteInstructionsProps {
   legs: RouteLeg[]
