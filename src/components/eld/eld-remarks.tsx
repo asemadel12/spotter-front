@@ -2,7 +2,7 @@ import { MapPin } from "lucide-react"
 
 import { getEventLabel } from "@/lib/eld"
 import { formatDistanceMiles } from "@/lib/formatting"
-import type { DailyLogRemark } from "@/types/trip"
+import type { DailyLogRemark } from "@/types/eld"
 
 interface EldRemarksProps {
   remarks: DailyLogRemark[]
