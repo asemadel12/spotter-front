@@ -16,6 +16,7 @@ describe("planner states", () => {
       </QueryClientProvider>,
     )
 
+    expect(screen.getByRole("img", { name: "RouteLedger" })).toBeVisible()
     expect(screen.getByText("Your planned trip will appear here")).toBeVisible()
     expect(screen.queryByRole("region", { name: "Trip summary" })).not.toBeInTheDocument()
     expect(screen.queryByText("932.1 mi")).not.toBeInTheDocument()
