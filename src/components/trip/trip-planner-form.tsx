@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Clock3, Flag, MapPin, Package, Route } from "lucide-react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
 
 import { ApiRequestError } from "@/api/client"
 import { Alert } from "@/components/ui/alert"
@@ -16,17 +15,13 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import type { ApiError, DrfValidationErrors, TripPlanRequest } from "@/types/trip"
-
-const tripPlanSchema = z.object({
-  current_location: z.string().trim().min(1, "Enter your current location."),
-  pickup_location: z.string().trim().min(1, "Enter the pickup location."),
-  dropoff_location: z.string().trim().min(1, "Enter the drop-off location."),
-  current_cycle_used_hours: z
-    .number({ invalid_type_error: "Enter the cycle hours used." })
-    .min(0, "Cycle hours cannot be below 0.")
-    .max(70, "Cycle hours cannot exceed 70."),
-})
+import {
+  applyTripPlanFieldErrors,
+  SAMPLE_TRIP,
+  TRIP_PLAN_DEFAULT_VALUES,
+  tripPlanSchema,
+} from "@/components/trip/trip-planner-form.logic"
+import type { TripPlanRequest } from "@/types/trip"
 
 interface TripPlannerFormProps {
   isPending: boolean
@@ -65,12 +60,7 @@ export function TripPlannerForm({ isPending, onSubmit }: TripPlannerFormProps) {
     formState: { errors },
   } = useForm<TripPlanRequest>({
     resolver: zodResolver(tripPlanSchema),
-    defaultValues: {
-      current_location: "",
-      pickup_location: "",
-      dropoff_location: "",
-      current_cycle_used_hours: 0,
-    },
+    defaultValues: TRIP_PLAN_DEFAULT_VALUES,
   })
 
   const submit = handleSubmit(async (values) => {
@@ -79,7 +69,10 @@ export function TripPlannerForm({ isPending, onSubmit }: TripPlannerFormProps) {
     try {
       await onSubmit(values)
     } catch (error) {
-      if (error instanceof ApiRequestError && applyFieldErrors(error, setError)) {
+      if (
+        error instanceof ApiRequestError &&
+        applyTripPlanFieldErrors(error, setError)
+      ) {
         return
       }
       setRequestError(
@@ -91,10 +84,9 @@ export function TripPlannerForm({ isPending, onSubmit }: TripPlannerFormProps) {
   })
 
   const useSampleTrip = () => {
-    setValue("current_location", "Chicago, IL", { shouldValidate: true })
-    setValue("pickup_location", "St. Louis, MO", { shouldValidate: true })
-    setValue("dropoff_location", "Dallas, TX", { shouldValidate: true })
-    setValue("current_cycle_used_hours", 20, { shouldValidate: true })
+    for (const [field, value] of Object.entries(SAMPLE_TRIP)) {
+      setValue(field as keyof TripPlanRequest, value, { shouldValidate: true })
+    }
     setRequestError(null)
   }
 
@@ -191,34 +183,4 @@ export function TripPlannerForm({ isPending, onSubmit }: TripPlannerFormProps) {
       </CardContent>
     </Card>
   )
-}
-
-type SetFormError = ReturnType<typeof useForm<TripPlanRequest>>["setError"]
-
-function applyFieldErrors(
-  error: ApiRequestError,
-  setError: SetFormError,
-): boolean {
-  const payload = error.payload
-  if (!payload) return false
-  if ("error" in payload) {
-    const applicationError = (payload as ApiError).error
-    if (applicationError.field && applicationError.field in tripPlanSchema.shape) {
-      setError(applicationError.field, { message: applicationError.message })
-      return true
-    }
-    return false
-  }
-
-  let applied = false
-  for (const field of Object.keys(tripPlanSchema.shape) as Array<
-    keyof TripPlanRequest
-  >) {
-    const messages = (payload as DrfValidationErrors)[field]
-    if (messages?.length) {
-      setError(field, { message: messages[0] })
-      applied = true
-    }
-  }
-  return applied
 }
