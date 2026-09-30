@@ -56,6 +56,39 @@ npm run build
 npm run preview
 ```
 
+## Project structure
+
+```text
+src/
+├─ api/                     # HTTP client and trip-planning endpoints
+├─ components/
+│  ├─ eld/                  # Daily ELD sheet, SVG graph, remarks and day navigation
+│  ├─ layout/               # Application-level layout components
+│  ├─ trip/                 # Trip form, map, timeline, instructions and results
+│  └─ ui/                   # Reusable shadcn-style UI primitives
+├─ hooks/                   # React Query/domain hooks
+├─ lib/                     # Pure formatting, route and ELD helpers
+├─ test/                    # Shared test setup and realistic API fixtures
+├─ types/
+│  ├─ api.ts                # Error/validation response contracts
+│  ├─ route.ts              # Routing, coordinates and map-stop contracts
+│  ├─ hos.ts                # HOS events, statuses and schedule contracts
+│  ├─ eld.ts                # Daily log contracts
+│  └─ trip.ts               # Top-level trip request/response composition
+├─ App.tsx                  # Page composition only
+└─ main.tsx                 # React/bootstrap providers only
+```
+
+### Structure conventions
+
+- `api/` owns network transport; components do not call `fetch` directly.
+- `types/` mirrors backend domains instead of keeping one monolithic type file.
+- `lib/` contains deterministic helpers with no React rendering concerns.
+- Trip-specific form validation/error mapping is co-located with the trip form as `trip-planner-form.logic.ts`.
+- `components/ui/` contains generic primitives only; business/domain UI lives in `components/trip/` or `components/eld/`.
+- Tests are co-located with the code they verify, while shared fixtures live under `test/`.
+- The backend remains the source of truth for route/HOS/daily-log calculations.
+
 ## Main flow
 
 ```text
