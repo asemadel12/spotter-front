@@ -50,18 +50,23 @@ export function TripSummary({ result }: TripSummaryProps) {
       <div className="flex flex-wrap gap-2 text-xs text-slate-600">
         <span className="rounded-full border bg-white px-3 py-1.5">
           <Fuel className="mr-1.5 inline size-3.5 text-amber-600" />
-          {result.schedule.summary.fuel_stops} fuel stops
+          {countLabel(result.schedule.summary.fuel_stops, "fuel stop")}
         </span>
         <span className="rounded-full border bg-white px-3 py-1.5">
-          {result.schedule.summary.breaks} breaks
+          {countLabel(result.schedule.summary.breaks, "break")}
         </span>
         <span className="rounded-full border bg-white px-3 py-1.5">
-          {result.schedule.summary.daily_rests} daily rests
+          {countLabel(result.schedule.summary.daily_rests, "daily rest")}
         </span>
         <span className="rounded-full border bg-white px-3 py-1.5">
-          {result.schedule.summary.cycle_restarts} cycle restarts
+          {countLabel(result.schedule.summary.cycle_restarts, "cycle restart")}
         </span>
       </div>
     </section>
   )
+}
+
+
+function countLabel(count: number, singular: string): string {
+  return `${count} ${singular}${count === 1 ? "" : "s"}`
 }
