@@ -15,9 +15,6 @@ export function AppHeader() {
             HOS-compliant route &amp; ELD planning
           </p>
         </div>
-        <span className="ml-auto hidden rounded-full border border-slate-200 px-2.5 py-1 text-xs font-medium text-slate-500 sm:inline-flex">
-          Assessment implementation
-        </span>
       </div>
     </header>
   )
