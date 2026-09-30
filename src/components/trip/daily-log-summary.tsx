@@ -26,7 +26,7 @@ export function DailyLogSummary({ dailyLogs }: DailyLogSummaryProps) {
         </div>
         <div className="mt-3 inline-flex items-center gap-2 rounded-lg bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-700 sm:mt-0">
           <CalendarCheck2 className="size-4" aria-hidden="true" />
-          {dailyLogs.summary.log_count} ELD log sheets generated
+          {dailyLogs.summary.log_count} ELD log {dailyLogs.summary.log_count === 1 ? "sheet" : "sheets"} generated
         </div>
       </CardHeader>
       <CardContent>
