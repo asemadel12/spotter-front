@@ -23,7 +23,7 @@ import {
   formatDistanceMiles,
   formatDuration,
 } from "@/lib/formatting"
-import type { HosEvent, HosEventType } from "@/types/trip"
+import type { HosEvent, HosEventType } from "@/types/hos"
 
 interface TripTimelineProps {
   events: HosEvent[]
