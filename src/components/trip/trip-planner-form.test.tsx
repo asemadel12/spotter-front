@@ -136,4 +136,19 @@ describe("TripPlannerForm", () => {
       "Unable to reach the trip planning service.",
     )
   })
+
+  it("fills the sample trip without submitting it", async () => {
+    const onSubmit = vi.fn()
+    const user = userEvent.setup()
+    render(<TripPlannerForm isPending={false} onSubmit={onSubmit} />)
+
+    await user.click(screen.getByRole("button", { name: "Use sample trip" }))
+
+    expect(screen.getByLabelText("Current Location")).toHaveValue("Chicago, IL")
+    expect(screen.getByLabelText("Pickup Location")).toHaveValue("St. Louis, MO")
+    expect(screen.getByLabelText("Drop-off Location")).toHaveValue("Dallas, TX")
+    expect(screen.getByLabelText("Current Cycle Used (Hrs)")).toHaveValue(20)
+    expect(onSubmit).not.toHaveBeenCalled()
+  })
+
 })
