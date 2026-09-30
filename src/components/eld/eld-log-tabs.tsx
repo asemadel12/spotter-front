@@ -1,5 +1,5 @@
 import { formatLogDate } from "@/lib/formatting"
-import type { DailyLog } from "@/types/trip"
+import type { DailyLog } from "@/types/eld"
 
 interface EldLogTabsProps {
   logs: DailyLog[]
