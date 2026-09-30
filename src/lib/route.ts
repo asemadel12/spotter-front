@@ -2,15 +2,15 @@ import along from "@turf/along"
 import { lineString } from "@turf/helpers"
 import length from "@turf/length"
 
+import type { HosEvent } from "@/types/hos"
 import type {
   Coordinate,
-  HosEvent,
   PositionedRouteStop,
   RouteGeometry,
   RouteStop,
   RouteStopType,
-  TripPlanResponse,
-} from "@/types/trip"
+} from "@/types/route"
+import type { TripLocations } from "@/types/trip"
 
 const STOP_LABELS: Record<RouteStopType, string> = {
   BREAK: "30-min break",
@@ -107,9 +107,7 @@ export function toRouteGeoJson(geometry: RouteGeometry) {
   }
 }
 
-export function getPrimaryLocationMarkers(
-  locations: TripPlanResponse["locations"],
-) {
+export function getPrimaryLocationMarkers(locations: TripLocations) {
   return [
     {
       id: "current_location" as const,
