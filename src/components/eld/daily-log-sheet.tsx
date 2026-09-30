@@ -1,11 +1,12 @@
 import { EldLogHeader } from "@/components/eld/eld-log-header"
 import { EldRemarks } from "@/components/eld/eld-remarks"
 import { EldStatusGraph } from "@/components/eld/eld-status-graph"
-import type { DailyLog, TripPlanResponse } from "@/types/trip"
+import type { DailyLog } from "@/types/eld"
+import type { TripLocations } from "@/types/trip"
 
 interface DailyLogSheetProps {
   log: DailyLog
-  locations: TripPlanResponse["locations"]
+  locations: TripLocations
 }
 
 export function DailyLogSheet({ log, locations }: DailyLogSheetProps) {
