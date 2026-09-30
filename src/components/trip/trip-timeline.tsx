@@ -10,6 +10,7 @@ import {
 import type { LucideIcon } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
+import { getEventLabel } from "@/lib/eld"
 import {
   Card,
   CardContent,
@@ -30,16 +31,15 @@ interface TripTimelineProps {
 
 const EVENT_META: Record<
   HosEventType,
-  { label: string; icon: LucideIcon; accent: string }
+  { icon: LucideIcon; accent: string }
 > = {
-  DRIVING: { label: "Driving", icon: Truck, accent: "bg-blue-600" },
-  PICKUP: { label: "Pickup", icon: PackageCheck, accent: "bg-violet-600" },
-  DROPOFF: { label: "Drop-off", icon: Flag, accent: "bg-emerald-600" },
-  BREAK: { label: "30-min Break", icon: CirclePause, accent: "bg-amber-500" },
-  FUEL: { label: "Fuel Stop", icon: Fuel, accent: "bg-orange-500" },
-  SLEEPER: { label: "Sleeper Rest", icon: BedDouble, accent: "bg-indigo-600" },
+  DRIVING: { icon: Truck, accent: "bg-blue-600" },
+  PICKUP: { icon: PackageCheck, accent: "bg-violet-600" },
+  DROPOFF: { icon: Flag, accent: "bg-emerald-600" },
+  BREAK: { icon: CirclePause, accent: "bg-amber-500" },
+  FUEL: { icon: Fuel, accent: "bg-orange-500" },
+  SLEEPER: { icon: BedDouble, accent: "bg-indigo-600" },
   CYCLE_RESTART: {
-    label: "34-hour Restart",
     icon: RotateCcw,
     accent: "bg-slate-700",
   },
@@ -72,7 +72,7 @@ export function TripTimeline({ events }: TripTimelineProps) {
                 <div className="min-w-0 flex-1 rounded-lg border border-slate-100 bg-slate-50/70 p-3">
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <div>
-                      <p className="font-medium text-slate-900">{meta.label}</p>
+                      <p className="font-medium text-slate-900">{getEventLabel(event.type)}</p>
                       <p className="mt-0.5 text-xs text-slate-500">
                         {formatDateTime(event.start)} – {formatDateTime(event.end)}
                       </p>

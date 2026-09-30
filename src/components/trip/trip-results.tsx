@@ -1,4 +1,4 @@
-import { DailyLogSummary } from "@/components/trip/daily-log-summary"
+import { DailyEldLogs } from "@/components/eld/daily-eld-logs"
 import { RouteInstructions } from "@/components/trip/route-instructions"
 import { RouteMap } from "@/components/trip/route-map"
 import { TripSummary } from "@/components/trip/trip-summary"
@@ -18,7 +18,7 @@ export function TripResults({ result }: TripResultsProps) {
         <TripTimeline events={result.schedule.events} />
         <RouteInstructions legs={result.route.legs} />
       </div>
-      <DailyLogSummary dailyLogs={result.daily_logs} />
+      <DailyEldLogs dailyLogs={result.daily_logs} locations={result.locations} />
     </div>
   )
 }

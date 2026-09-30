@@ -1,4 +1,5 @@
 import { render, screen, within } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import { describe, expect, it, vi } from "vitest"
 
 import { TripResults } from "@/components/trip/trip-results"
@@ -26,10 +27,12 @@ describe("TripResults", () => {
     expect(within(summary).getByText("1 fuel stop")).toBeVisible()
   })
 
-  it("displays the daily log count and per-day summaries", () => {
+  it("displays the daily log count and lets the user inspect each sheet", async () => {
+    const user = userEvent.setup()
     render(<TripResults result={tripPlanFixture} />)
     expect(screen.getByText("2 ELD log sheets generated")).toBeVisible()
     expect(screen.getByText("683.5 mi")).toBeVisible()
+    await user.click(screen.getByRole("button", { name: /Day 2/i }))
     expect(screen.getAllByText("248.5 mi").length).toBeGreaterThan(0)
   })
 
@@ -62,9 +65,9 @@ describe("TripResults", () => {
 
   it("displays normalized labels for all primary locations", () => {
     render(<TripResults result={tripPlanFixture} />)
-    expect(screen.getByText("Chicago, Cook County, Illinois, USA")).toBeVisible()
-    expect(screen.getByText("St. Louis, Missouri, USA")).toBeVisible()
-    expect(screen.getByText("Dallas, Dallas County, Texas, USA")).toBeVisible()
+    expect(screen.getAllByText("Chicago, Cook County, Illinois, USA").length).toBeGreaterThan(0)
+    expect(screen.getAllByText("St. Louis, Missouri, USA").length).toBeGreaterThan(0)
+    expect(screen.getAllByText("Dallas, Dallas County, Texas, USA").length).toBeGreaterThan(0)
   })
 })
 
