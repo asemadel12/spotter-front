@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 170" role="img" aria-labelledby="title desc">
+  <title id="title">RouteLedger</title>
+  <desc id="desc">RouteLedger HOS trip planning and ELD logo</desc>
+  <defs>
+    <linearGradient id="road" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f2f6d"/>
+      <stop offset="0.58" stop-color="#0b4fb3"/>
+      <stop offset="1" stop-color="#0877ff"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#0b63f6"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(10 10)">
+    <path
+      d="M16 12h77c31 0 54 8 69 24 12 12 18 28 18 48 0 21-6 38-19 50-11 10-25 17-43 21l35 43h-43l-40-50h25c18 0 31-4 40-11 8-7 12-17 12-31 0-13-4-23-12-29-8-7-21-10-39-10H40z"
+      fill="url(#road)"
+    />
+    <path
+      d="M12 150c29-51 57-88 85-111 20-17 39-28 57-34-27 21-49 46-67 76-18 29-31 52-39 69z"
+      fill="url(#road)"
+    />
+    <path
+      d="M87 150c10-28 23-52 39-72 15-19 32-34 51-45-14 18-24 36-31 54l46 63h-43l-25-36c-5 11-9 23-12 36z"
+      fill="url(#accent)"
+    />
+    <path d="M56 115h15l-7 17H49z" fill="#f8fafc" opacity=".95"/>
+    <path d="M72 83h13l-7 16H64z" fill="#f8fafc" opacity=".95"/>
+  </g>
+
+  <g transform="translate(220 38)">
+    <text x="0" y="58" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="800" letter-spacing="-2">
+      <tspan fill="#0f172a">Route</tspan><tspan fill="#0b63f6">Ledger</tspan>
+    </text>
+    <text x="2" y="102" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" letter-spacing="5" fill="#64748b">
+      HOS TRIP PLANNING &amp; ELD
+    </text>
+  </g>
+</svg>
