@@ -9,7 +9,8 @@ import {
   secondToGraphX,
 } from "@/lib/eld"
 import { formatLogDate } from "@/lib/formatting"
-import type { DailyLog, DailyLogTotals, DutyStatus } from "@/types/trip"
+import type { DailyLog, DailyLogTotals } from "@/types/eld"
+import type { DutyStatus } from "@/types/hos"
 
 interface EldStatusGraphProps {
   log: DailyLog
