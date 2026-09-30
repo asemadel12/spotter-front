@@ -105,7 +105,7 @@ export const tripPlanFixture: TripPlanResponse = {
       { type: "DRIVING", status: "DRIVING", start: "2026-01-01T08:00:00Z", end: "2026-01-01T12:00:00Z", duration_seconds: 14_400, distance_meters: 350_000, location: "en_route", reason: "Route travel" },
       { type: "PICKUP", status: "ON_DUTY_NOT_DRIVING", start: "2026-01-01T12:00:00Z", end: "2026-01-01T13:00:00Z", duration_seconds: 3_600, distance_meters: 0, location: "pickup_location", reason: "Pickup service" },
       { type: "DRIVING", status: "DRIVING", start: "2026-01-01T13:00:00Z", end: "2026-01-01T17:00:00Z", duration_seconds: 14_400, distance_meters: 350_000, location: "en_route", reason: "Route travel" },
-      { type: "BREAK", status: "OFF_DUTY", start: "2026-01-01T17:00:00Z", end: "2026-01-01T17:30:00Z", duration_seconds: 1_800, distance_meters: 0, location: "en_route", reason: "Required 30-minute break" },
+      { type: "BREAK", status: "ON_DUTY_NOT_DRIVING", start: "2026-01-01T17:00:00Z", end: "2026-01-01T17:30:00Z", duration_seconds: 1_800, distance_meters: 0, location: "en_route", reason: "Required 30-minute break" },
       { type: "DRIVING", status: "DRIVING", start: "2026-01-01T17:30:00Z", end: "2026-01-01T21:30:00Z", duration_seconds: 14_400, distance_meters: 400_000, location: "en_route", reason: "Route travel" },
       { type: "FUEL", status: "ON_DUTY_NOT_DRIVING", start: "2026-01-01T21:30:00Z", end: "2026-01-01T22:00:00Z", duration_seconds: 1_800, distance_meters: 0, location: "en_route", reason: "Fuel stop" },
       { type: "SLEEPER", status: "SLEEPER_BERTH", start: "2026-01-01T22:00:00Z", end: "2026-01-02T08:00:00Z", duration_seconds: 36_000, distance_meters: 0, location: "en_route", reason: "Daily rest" },
