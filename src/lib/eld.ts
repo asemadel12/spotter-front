@@ -1,8 +1,5 @@
-import type {
-  DailyLogSegment,
-  DutyStatus,
-  HosEventType,
-} from "@/types/trip"
+import type { DailyLogSegment } from "@/types/eld"
+import type { DutyStatus, HosEventType } from "@/types/hos"
 
 export const SECONDS_PER_DAY = 86_400
 
