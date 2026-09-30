@@ -17,14 +17,30 @@ export function formatDuration(totalSeconds: number): string {
 }
 
 export function formatDateTime(value: string): string {
-  const date = new Date(value)
-  if (Number.isNaN(date.getTime())) return "Unknown time"
+  const match = value.match(
+    /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::\d{2}(?:\.\d+)?)?(Z|[+-]\d{2}:\d{2})$/,
+  )
+  if (!match) return "Unknown time"
+
+  const [, year, month, day, hour, minute] = match
+  const wallClock = new Date(
+    Date.UTC(
+      Number(year),
+      Number(month) - 1,
+      Number(day),
+      Number(hour),
+      Number(minute),
+    ),
+  )
+  if (Number.isNaN(wallClock.getTime())) return "Unknown time"
+
   return new Intl.DateTimeFormat(undefined, {
     month: "short",
     day: "numeric",
     hour: "numeric",
     minute: "2-digit",
-  }).format(date)
+    timeZone: "UTC",
+  }).format(wallClock)
 }
 
 export function formatHours(seconds: number): string {
