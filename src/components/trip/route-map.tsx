@@ -30,7 +30,8 @@ import {
   positionRouteStops,
   toRouteGeoJson,
 } from "@/lib/route"
-import type { PositionedRouteStop, TripPlanResponse } from "@/types/trip"
+import type { PositionedRouteStop } from "@/types/route"
+import type { TripPlanResponse } from "@/types/trip"
 
 setWorkerUrl(workerUrl)
 
