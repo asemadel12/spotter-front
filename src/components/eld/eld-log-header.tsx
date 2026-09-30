@@ -2,11 +2,12 @@ import { Route } from "lucide-react"
 import type { ReactNode } from "react"
 
 import { formatLogDate } from "@/lib/formatting"
-import type { DailyLog, TripPlanResponse } from "@/types/trip"
+import type { DailyLog } from "@/types/eld"
+import type { TripLocations } from "@/types/trip"
 
 interface EldLogHeaderProps {
   log: DailyLog
-  locations: TripPlanResponse["locations"]
+  locations: TripLocations
 }
 
 const unavailableFields = [
