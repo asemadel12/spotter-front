@@ -39,8 +39,9 @@ describe("EldStatusGraph", () => {
 
   it("shows backend totals and visibly communicates a 24-hour total", () => {
     render(<EldStatusGraph log={dayOne} />)
-    expect(screen.getAllByText("8.5h").length).toBeGreaterThan(0)
+    expect(screen.getAllByText("8h").length).toBeGreaterThan(0)
     expect(screen.getAllByText("12h").length).toBeGreaterThan(0)
+    expect(screen.getAllByText("2h").length).toBeGreaterThan(0)
     expect(screen.getByText("Total record: 24h")).toBeVisible()
   })
 
