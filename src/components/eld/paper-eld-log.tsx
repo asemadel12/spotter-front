@@ -77,7 +77,7 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
           </desc>
 
           <image
-            href="/blank-paper-log.png"
+            href="/blank-paper-log.svg"
             x="0"
             y="0"
             width={PAPER_WIDTH}
