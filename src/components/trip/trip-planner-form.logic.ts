@@ -10,7 +10,10 @@ export const tripPlanSchema = z.object({
   pickup_location: z.string().trim().min(1, "Enter the pickup location."),
   dropoff_location: z.string().trim().min(1, "Enter the drop-off location."),
   current_cycle_used_hours: z
-    .number({ invalid_type_error: "Enter the cycle hours used." })
+    .number({
+      required_error: "Enter the cycle hours used.",
+      invalid_type_error: "Enter the cycle hours used.",
+    })
     .min(0, "Cycle hours cannot be below 0.")
     .max(70, "Cycle hours cannot exceed 70."),
 })
