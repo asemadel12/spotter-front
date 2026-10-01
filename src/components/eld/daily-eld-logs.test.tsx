@@ -117,7 +117,7 @@ describe("DailyEldLogs", () => {
     )
     expect(screen.getByText("Day 2 of 3")).toBeVisible()
     expect(screen.getByText("248.5 mi")).toBeVisible()
-    expect(screen.getAllByTestId("duty-trace-span")[0]).toHaveAttribute(
+    expect(screen.getAllByTestId("paper-duty-trace-span")[0]).toHaveAttribute(
       "data-status",
       "SLEEPER_BERTH",
     )
