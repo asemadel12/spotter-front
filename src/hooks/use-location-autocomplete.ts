@@ -32,7 +32,8 @@ export function useLocationAutocomplete(query: string): LocationAutocompleteStat
 
     let controller: AbortController | null = null
     const timer = window.setTimeout(async () => {
-      controller = new AbortController()
+      const requestController = new AbortController()
+      controller = requestController
       setState((current) => ({
         ...current,
         isLoading: true,
@@ -42,7 +43,7 @@ export function useLocationAutocomplete(query: string): LocationAutocompleteStat
       try {
         const suggestions = await autocompleteLocations(
           normalized,
-          controller.signal,
+          requestController.signal,
         )
         setState({
           suggestions,
@@ -50,7 +51,7 @@ export function useLocationAutocomplete(query: string): LocationAutocompleteStat
           hasSearched: true,
         })
       } catch {
-        if (controller.signal.aborted) return
+        if (requestController.signal.aborted) return
         setState({
           suggestions: [],
           isLoading: false,
