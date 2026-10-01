@@ -44,10 +44,12 @@ describe("PaperEldLog", () => {
     )
   })
 
-  it("uses each log day's first and last recorded locations for From and To", () => {
+  it("uses exact backend day-boundary locations for From and To", () => {
     const source = tripPlanFixture.daily_logs.logs[0]
     const log = {
       ...source,
+      from_location_label: "Chicago, IL",
+      to_location_label: "Springfield, MO",
       remarks: [
         {
           ...source.remarks[0],
@@ -64,7 +66,7 @@ describe("PaperEldLog", () => {
 
     const fields = screen.getByTestId("paper-log-fields")
     expect(fields).toHaveTextContent("Chicago, IL")
-    expect(fields).toHaveTextContent("St. Louis, MO")
+    expect(fields).toHaveTextContent("Springfield, MO")
     expect(fields).not.toHaveTextContent("Dallas, Dallas County, Texas, USA")
   })
 
