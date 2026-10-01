@@ -1,9 +1,16 @@
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { describe, expect, it, vi } from "vitest"
+import { beforeEach, describe, expect, it, vi } from "vitest"
 
 import { ApiRequestError } from "@/api/client"
+import { autocompleteLocations } from "@/api/locations"
 import { TripPlannerForm } from "@/components/trip/trip-planner-form"
+
+vi.mock("@/api/locations", () => ({
+  autocompleteLocations: vi.fn(),
+}))
+
+const mockedAutocompleteLocations = vi.mocked(autocompleteLocations)
 
 async function fillValidForm(cycleHours = "20") {
   const user = userEvent.setup()
@@ -17,6 +24,11 @@ async function fillValidForm(cycleHours = "20") {
 }
 
 describe("TripPlannerForm", () => {
+  beforeEach(() => {
+    mockedAutocompleteLocations.mockReset()
+    mockedAutocompleteLocations.mockResolvedValue([])
+  })
+
   it("requires every location", async () => {
     const user = userEvent.setup()
     render(<TripPlannerForm isPending={false} onSubmit={vi.fn()} />)
@@ -151,4 +163,46 @@ describe("TripPlannerForm", () => {
     expect(onSubmit).not.toHaveBeenCalled()
   })
 
+
+  it("lets the user choose an autocomplete suggestion", async () => {
+    mockedAutocompleteLocations.mockResolvedValue([
+      {
+        label: "233 South Wacker Drive, Chicago, IL, USA",
+        latitude: 41.8789,
+        longitude: -87.6359,
+      },
+    ])
+    const user = userEvent.setup()
+    render(<TripPlannerForm isPending={false} onSubmit={vi.fn()} />)
+
+    const input = screen.getByLabelText("Current Location")
+    await user.type(input, "233 S Wa")
+
+    const option = await screen.findByRole(
+      "option",
+      { name: "233 South Wacker Drive, Chicago, IL, USA" },
+      { timeout: 1000 },
+    )
+    await user.click(option)
+
+    expect(input).toHaveValue("233 South Wacker Drive, Chicago, IL, USA")
+  })
+
+  it("keeps free-text trip planning usable when autocomplete fails", async () => {
+    mockedAutocompleteLocations.mockRejectedValue(new Error("provider down"))
+    const onSubmit = vi.fn().mockResolvedValue(undefined)
+    render(<TripPlannerForm isPending={false} onSubmit={onSubmit} />)
+
+    const user = await fillValidForm()
+    await user.click(screen.getByRole("button", { name: "Plan Trip" }))
+
+    await waitFor(() =>
+      expect(onSubmit).toHaveBeenCalledWith({
+        current_location: "Chicago, IL",
+        pickup_location: "St. Louis, MO",
+        dropoff_location: "Dallas, TX",
+        current_cycle_used_hours: 20,
+      }),
+    )
+  })
 })
