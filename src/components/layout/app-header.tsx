@@ -1,6 +1,6 @@
 export function AppHeader() {
   return (
-    <header className="border-b border-slate-200 bg-white">
+    <header className="app-screen-only border-b border-slate-200 bg-white">
       <div className="mx-auto flex max-w-[1480px] items-center px-4 py-3 sm:px-6 lg:px-8">
         <img
           src="/routeledger-logo.svg?v=8"
