@@ -12,7 +12,7 @@ function App() {
     <div className="min-h-screen bg-slate-50">
       <AppHeader />
       <main className="mx-auto max-w-[1480px] px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
-        <div className="mb-7 max-w-3xl">
+        <div className="app-screen-only mb-7 max-w-3xl">
           <p className="text-sm font-semibold text-blue-700">Fleet operations</p>
           <h1 className="mt-1 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
             Trip planning, with every duty hour accounted for.
@@ -23,11 +23,13 @@ function App() {
           </p>
         </div>
 
-        <div className="grid items-start gap-6 lg:grid-cols-[360px_minmax(0,1fr)] xl:gap-8">
-          <TripPlannerForm
-            isPending={tripPlan.isPending}
-            onSubmit={(values) => tripPlan.mutateAsync(values)}
-          />
+        <div className="trip-layout grid items-start gap-6 lg:grid-cols-[360px_minmax(0,1fr)] xl:gap-8">
+          <div className="app-screen-only">
+            <TripPlannerForm
+              isPending={tripPlan.isPending}
+              onSubmit={(values) => tripPlan.mutateAsync(values)}
+            />
+          </div>
           <section aria-label="Trip planning results" className="min-w-0">
             {tripPlan.isPending ? (
               <PlanningLoadingState />
