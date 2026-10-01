@@ -222,4 +222,78 @@ describe("TripPlannerForm", () => {
       }),
     )
   })
+
+  it.each(["0", "70"])(
+    "submits cycle boundary %s from the real form",
+    async (cycleHours) => {
+      const onSubmit = vi.fn().mockResolvedValue(undefined)
+      render(<TripPlannerForm isPending={false} onSubmit={onSubmit} />)
+      const user = await fillValidForm(cycleHours)
+      await user.click(screen.getByRole("button", { name: "Plan Trip" }))
+
+      await waitFor(() => expect(onSubmit).toHaveBeenCalledOnce())
+      expect(onSubmit.mock.calls[0][0].current_cycle_used_hours).toBe(
+        Number(cycleHours),
+      )
+    },
+  )
+
+  it("rejects a location longer than the backend 255-character limit", async () => {
+    const onSubmit = vi.fn()
+    const user = userEvent.setup()
+    render(<TripPlannerForm isPending={false} onSubmit={onSubmit} />)
+
+    await user.type(screen.getByLabelText("Current Location"), "a".repeat(256))
+    await user.type(screen.getByLabelText("Pickup Location"), "St. Louis, MO")
+    await user.type(screen.getByLabelText("Drop-off Location"), "Dallas, TX")
+    await user.type(screen.getByLabelText("Current Cycle Used (Hrs)"), "20")
+    await user.click(screen.getByRole("button", { name: "Plan Trip" }))
+
+    expect(
+      await screen.findByText(
+        "Current location must be 255 characters or fewer.",
+      ),
+    ).toBeVisible()
+    expect(onSubmit).not.toHaveBeenCalled()
+  })
+
+  it("surfaces a too-broad backend location error on the correct field", async () => {
+    const onSubmit = vi.fn().mockRejectedValue(
+      new ApiRequestError("Use a city, street, or full address.", 400, {
+        error: {
+          code: "location_too_broad",
+          field: "dropoff_location",
+          message: "Use a city, street, or full address for drop-off location.",
+        },
+      }),
+    )
+    render(<TripPlannerForm isPending={false} onSubmit={onSubmit} />)
+    const user = await fillValidForm()
+    await user.click(screen.getByRole("button", { name: "Plan Trip" }))
+
+    expect(
+      await screen.findByText(
+        "Use a city, street, or full address for drop-off location.",
+      ),
+    ).toBeVisible()
+    expect(screen.getByLabelText("Drop-off Location")).toHaveAttribute(
+      "aria-invalid",
+      "true",
+    )
+  })
+
+  it("reports all four untouched required inputs on the first submit", async () => {
+    const onSubmit = vi.fn()
+    const user = userEvent.setup()
+    render(<TripPlannerForm isPending={false} onSubmit={onSubmit} />)
+
+    await user.click(screen.getByRole("button", { name: "Plan Trip" }))
+
+    expect(await screen.findByText("Enter your current location.")).toBeVisible()
+    expect(screen.getByText("Enter the pickup location.")).toBeVisible()
+    expect(screen.getByText("Enter the drop-off location.")).toBeVisible()
+    expect(screen.getByText("Enter the cycle hours used.")).toBeVisible()
+    expect(onSubmit).not.toHaveBeenCalled()
+  })
+
 })
