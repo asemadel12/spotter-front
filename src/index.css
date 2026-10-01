@@ -201,6 +201,23 @@
     max-width: 100% !important;
   }
 
+  .trip-print-report .eld-paper-meta,
+  .trip-print-report .eld-digital-remarks {
+    display: none !important;
+  }
+
+  .trip-print-report [data-testid="provided-eld-paper"] {
+    padding: 0 !important;
+  }
+
+  .trip-print-report [data-testid="provided-eld-paper-svg"] {
+    display: block !important;
+    width: 175mm !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+  }
+
   .trip-print-report table,
   .trip-print-report tr,
   .trip-print-report article > header,
