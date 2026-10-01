@@ -144,8 +144,8 @@
 
 @media print {
   @page {
-    size: landscape;
-    margin: 10mm;
+    size: A4 landscape;
+    margin: 6mm;
   }
 
   html,
@@ -206,20 +206,44 @@
   }
 
   .trip-print-report .eld-digital-remarks {
-    margin-top: 4mm !important;
-    font-size: 9pt !important;
+    display: none !important;
   }
 
   .trip-print-report [data-testid="provided-eld-paper"] {
     padding: 0 !important;
   }
 
-  .trip-print-report [data-testid="provided-eld-paper-svg"] {
-    display: block !important;
+  .trip-print-report [data-testid="provided-eld-paper"] > div {
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .trip-print-report [data-testid="provided-eld-paper-canvas"] {
     width: 175mm !important;
     min-width: 0 !important;
-    max-width: 100% !important;
+    max-width: 175mm !important;
     margin: 0 auto !important;
+    aspect-ratio: 513 / 518 !important;
+  }
+
+  .trip-print-report [data-testid="provided-eld-paper-image"],
+  .trip-print-report [data-testid="provided-eld-paper-svg"] {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+  }
+
+  .trip-print-report .trip-print-eld-page {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .trip-print-report .trip-print-eld-page article {
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
   }
 
   .trip-print-report table,
