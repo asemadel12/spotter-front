@@ -16,8 +16,8 @@ const PAPER_HEIGHT = 518
 const PAPER_GRAPH = {
   graphLeft: 64,
   graphWidth: 390,
-  graphTop: 185,
-  rowHeight: 19.5,
+  graphTop: 184,
+  rowHeight: 17.25,
 } as const
 
 const totalKeys: Record<DutyStatus, keyof DailyLogTotals> = {
@@ -28,10 +28,10 @@ const totalKeys: Record<DutyStatus, keyof DailyLogTotals> = {
 }
 
 const totalRows: Array<{ status: DutyStatus; y: number }> = [
-  { status: "OFF_DUTY", y: 194.5 },
-  { status: "SLEEPER_BERTH", y: 214 },
-  { status: "DRIVING", y: 233.5 },
-  { status: "ON_DUTY_NOT_DRIVING", y: 253 },
+  { status: "OFF_DUTY", y: 193 },
+  { status: "SLEEPER_BERTH", y: 210 },
+  { status: "DRIVING", y: 227 },
+  { status: "ON_DUTY_NOT_DRIVING", y: 244 },
 ]
 
 export function PaperEldLog({ log, locations }: PaperEldLogProps) {
@@ -39,7 +39,7 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
   const descriptionId = useId()
   const trace = buildDutyTrace(log.segments, PAPER_GRAPH)
   const [year, month, day] = log.date.split("-")
-  const remarks = log.remarks.slice(0, 8)
+  const remarks = log.remarks.slice(0, 13)
   const extraRemarkCount = Math.max(0, log.remarks.length - remarks.length)
 
   return (
@@ -116,8 +116,8 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
               <text
                 key={`${remark.second_of_day}-${remark.event_type}-${index}`}
                 x="28"
-                y={294 + index * 9}
-                fontSize="6.3"
+                y={294 + index * 8}
+                fontSize="5.8"
               >
                 {`${remark.time}  ${getEventLabel(remark.event_type)} — ${fitText(
                   remark.location.label,
@@ -126,7 +126,7 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
               </text>
             ))}
             {extraRemarkCount > 0 && (
-              <text x="28" y={294 + remarks.length * 9} fontSize="6.3">
+              <text x="28" y={294 + remarks.length * 8} fontSize="5.8">
                 {`+${extraRemarkCount} additional event${extraRemarkCount === 1 ? "" : "s"} in detailed remarks`}
               </text>
             )}
