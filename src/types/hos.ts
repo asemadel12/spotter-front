@@ -33,6 +33,7 @@ export interface HosEvent {
   duration_seconds: number
   distance_meters: number
   location: string
+  location_label?: string
   reason: string
   route_progress?: RouteProgressMetadata
 }
