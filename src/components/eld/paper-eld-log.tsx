@@ -132,12 +132,6 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
             )}
 
             <text x="75" y="349" fontSize="6.5">—</text>
-            <text x="91" y="438" textAnchor="middle" fontSize="6.5">
-              {formatPaperHours(
-                log.totals.driving_seconds +
-                  log.totals.on_duty_not_driving_seconds,
-              )}
-            </text>
 
             {totalRows.map(({ status, y }) => (
               <text
