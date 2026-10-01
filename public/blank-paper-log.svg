@@ -32,13 +32,13 @@
     <text x="81" y="128" font-size="5" stroke="none">Truck/Tractor and Trailer Numbers or</text>
     <text x="79" y="136" font-size="5" stroke="none">License Plate(s)/State (show each unit)</text>
 
-    <rect x="55" y="154" width="438" height="31" fill="#111" stroke="none"/>
+    <rect x="55" y="154" width="455" height="31" fill="#111" stroke="none"/>
     <text x="58" y="165" font-size="5.2" fill="#fff" stroke="none">Mid-</text>
     <text x="58" y="172" font-size="5.2" fill="#fff" stroke="none">night</text>
     <text x="469" y="166" font-size="5.2" fill="#fff" stroke="none">Mid-</text>
     <text x="469" y="173" font-size="5.2" fill="#fff" stroke="none">night</text>
-    <text x="491" y="166" font-size="5.2" fill="#fff" stroke="none">Total</text>
-    <text x="491" y="173" font-size="5.2" fill="#fff" stroke="none">Hours</text>
+    <text x="500" y="166" font-size="5.2" fill="#fff" stroke="none" text-anchor="middle">Total</text>
+    <text x="500" y="173" font-size="5.2" fill="#fff" stroke="none" text-anchor="middle">Hours</text>
 
     <g font-size="5.2" fill="#fff" stroke="none" text-anchor="middle">
       <text x="80.25" y="179">1</text><text x="96.5" y="179">2</text>
