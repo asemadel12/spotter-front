@@ -41,10 +41,6 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
   const [year, month, day] = log.date.split("-")
   const remarks = log.remarks.slice(0, 8)
   const extraRemarkCount = Math.max(0, log.remarks.length - remarks.length)
-  const fromLabel =
-    log.remarks[0]?.location.label ?? locations.current_location.label
-  const toLabel =
-    log.remarks.at(-1)?.location.label ?? locations.dropoff_location.label
 
   return (
     <section
@@ -103,8 +99,8 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
             <text x="205" y="31" textAnchor="middle">{day}</text>
             <text x="236" y="31" textAnchor="middle">{year}</text>
 
-            <text x="67" y="46">{fitText(fromLabel, 31)}</text>
-            <text x="258" y="46">{fitText(toLabel, 31)}</text>
+            <text x="67" y="46">{fitText(locations.current_location.label, 31)}</text>
+            <text x="258" y="46">{fitText(locations.dropoff_location.label, 31)}</text>
 
             <text x="94" y="80" textAnchor="middle" fontSize="9" fontWeight="700">
               {log.driving_distance_miles.toFixed(1)}
