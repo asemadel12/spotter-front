@@ -15,7 +15,9 @@ export function DailyLogSheet({ log, locations }: DailyLogSheetProps) {
       aria-label={`Daily log for ${log.date}`}
     >
       <PaperEldLog log={log} locations={locations} />
-      <EldRemarks remarks={log.remarks} />
+      <div className="eld-digital-remarks">
+        <EldRemarks remarks={log.remarks} />
+      </div>
     </article>
   )
 }
