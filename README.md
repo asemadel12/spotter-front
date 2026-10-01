@@ -97,9 +97,9 @@ Trip form
   -> route summary
   -> interactive MapLibre route
   -> HOS stop markers
-  -> chronological timeline
-  -> turn-by-turn route instructions
+  -> tabbed Schedule / Directions / Daily ELD workspace
   -> multi-day SVG ELD log sheets
+  -> print-ready complete trip report / Save as PDF
 ```
 
 The frontend does not recalculate HOS legality. The backend-provided schedule and daily logs are treated as authoritative.
