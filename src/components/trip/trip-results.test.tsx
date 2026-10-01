@@ -111,6 +111,9 @@ describe("TripResults", () => {
 
     expect(print).toHaveBeenCalledOnce()
     expect(document.querySelector(".trip-print-report")).not.toBeNull()
+    expect(document.querySelectorAll(".trip-print-eld-page")).toHaveLength(
+      tripPlanFixture.daily_logs.logs.length,
+    )
     print.mockRestore()
   })
 
