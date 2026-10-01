@@ -33,6 +33,8 @@ export interface DailyLogTotals {
 export interface DailyLog {
   date: string
   timezone: string
+  from_location_label?: string
+  to_location_label?: string
   driving_distance_meters: number
   driving_distance_miles: number
   totals: DailyLogTotals
