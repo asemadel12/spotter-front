@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 170" role="img" aria-labelledby="title desc">
+  <title id="title">RouteLedger</title>
+  <desc id="desc">RouteLedger HOS trip planning and ELD logo</desc>
+
+  <defs>
+    <linearGradient id="markNavy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f2f6d"/>
+      <stop offset="1" stop-color="#082b63"/>
+    </linearGradient>
+    <linearGradient id="roadBlue" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#0b4fb3"/>
+      <stop offset="0.55" stop-color="#0b63f6"/>
+      <stop offset="1" stop-color="#2ea8ff"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(12 10)">
+    <!-- R body -->
+    <path
+      d="M8 10h80c29 0 51 7 66 22 13 13 20 30 20 50 0 22-7 39-21 52-10 9-22 15-37 19l36 47h-42l-44-60h24c16 0 28-4 36-11 8-7 12-17 12-30s-4-23-12-30c-8-7-20-10-37-10H34z"
+      fill="url(#markNavy)"
+    />
+
+    <!-- Bright R leg -->
+    <path
+      d="M104 98l62 62h-43L83 117z"
+      fill="#0b63f6"
+    />
+
+    <!-- BLUE ROAD: explicit visible stroke, never negative space -->
+    <path
+      d="M25 148C48 104 78 72 142 38"
+      fill="none"
+      stroke="url(#roadBlue)"
+      stroke-width="34"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- white lane divider on top of blue road -->
+    <path
+      d="M31 140C53 101 82 72 138 43"
+      fill="none"
+      stroke="#ffffff"
+      stroke-width="5"
+      stroke-linecap="round"
+      stroke-dasharray="15 15"
+    />
+  </g>
+
+  <g transform="translate(220 38)">
+    <text
+      x="0"
+      y="58"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="64"
+      font-weight="800"
+      letter-spacing="-2"
+    >
+      <tspan fill="#0f172a">Route</tspan><tspan fill="#0b63f6">Ledger</tspan>
+    </text>
+
+    <text
+      x="2"
+      y="102"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="18"
+      font-weight="600"
+      letter-spacing="5"
+      fill="#64748b"
+    >
+      HOS TRIP PLANNING &amp; ELD
+    </text>
+  </g>
+</svg>
