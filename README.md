@@ -2,7 +2,7 @@
 
 RouteLedger is the React + TypeScript frontend built for the Spotter full-stack developer assessment.
 
-The application submits the four required trip inputs to the Django backend and renders the returned route, HOS schedule, operational stops, turn-by-turn directions, and daily ELD log sheets drawn on the assessment-provided paper-log layout.
+The application submits the four required trip inputs to the Django backend and renders the returned route, HOS schedule, operational stops, turn-by-turn directions, and daily ELD log sheets drawn directly over the paper-log image supplied with the assessment.
 
 ## Stack
 
@@ -88,6 +88,7 @@ src/
 - `components/ui/` contains generic primitives only; business/domain UI lives in `components/trip/` or `components/eld/`.
 - Tests are co-located with the code they verify, while shared fixtures live under `test/`.
 - The backend remains the source of truth for route/HOS/daily-log calculations.
+- The supplied blank ELD paper image is embedded locally as `public/blank-paper-log.svg`; generated values and duty traces are overlaid without inventing unavailable carrier/driver data.
 
 ## Main flow
 
@@ -98,7 +99,7 @@ Trip form
   -> interactive MapLibre route
   -> HOS stop markers
   -> tabbed Schedule / Directions / Daily ELD workspace
-  -> multi-day paper-style ELD sheets with drawn duty traces
+  -> multi-day ELD sheets using the supplied blank paper-log image with drawn duty traces
   -> city/state duty-change remarks when reverse geocoding is available
   -> print-ready complete trip report / Save as PDF
 ```
