@@ -62,4 +62,62 @@ describe("useLocationAutocomplete", () => {
     expect(result.current.isLoading).toBe(false)
     expect(result.current.suggestions).toEqual([])
   })
+
+  it("does not expose stale suggestions after the query changes quickly", async () => {
+    let resolveFirst: ((value: Array<{
+      label: string
+      latitude: number
+      longitude: number
+    }>) => void) | undefined
+
+    mockedAutocompleteLocations
+      .mockImplementationOnce(
+        () =>
+          new Promise((resolve) => {
+            resolveFirst = resolve
+          }),
+      )
+      .mockResolvedValueOnce([
+        {
+          label: "Dallas, TX, USA",
+          latitude: 32.7767,
+          longitude: -96.797,
+        },
+      ])
+
+    const { result, rerender } = renderHook(
+      ({ query }) => useLocationAutocomplete(query),
+      { initialProps: { query: "Chicago" } },
+    )
+
+    await waitFor(
+      () => expect(mockedAutocompleteLocations).toHaveBeenCalledTimes(1),
+      { timeout: 1000 },
+    )
+
+    rerender({ query: "Dallas" })
+
+    await waitFor(
+      () => expect(mockedAutocompleteLocations).toHaveBeenCalledTimes(2),
+      { timeout: 1000 },
+    )
+    await waitFor(() =>
+      expect(result.current.suggestions[0]?.label).toBe("Dallas, TX, USA"),
+    )
+
+    resolveFirst?.([
+      {
+        label: "Chicago, IL, USA",
+        latitude: 41.8781,
+        longitude: -87.6298,
+      },
+    ])
+
+    await act(async () => {
+      await Promise.resolve()
+    })
+
+    expect(result.current.suggestions[0]?.label).toBe("Dallas, TX, USA")
+  })
+
 })
