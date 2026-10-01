@@ -137,3 +137,75 @@
 .stop-marker--cycle_restart {
   background: #334155;
 }
+
+.trip-print-report {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: landscape;
+    margin: 10mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  .trip-print-report,
+  .trip-print-report * {
+    visibility: visible !important;
+  }
+
+  .trip-print-report {
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    background: #ffffff;
+    color: #0f172a;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .trip-print-section {
+    width: 100%;
+  }
+
+  .trip-print-page-break {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  .trip-print-report article {
+    overflow: visible !important;
+    border-color: #94a3b8 !important;
+    box-shadow: none !important;
+  }
+
+  .trip-print-report [data-testid="eld-graph-scroll-container"] {
+    overflow: visible !important;
+  }
+
+  .trip-print-report [data-testid="eld-status-graph"] {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .trip-print-report table,
+  .trip-print-report tr,
+  .trip-print-report article > header,
+  .trip-print-report article > section {
+    break-inside: avoid;
+  }
+
+  .trip-print-report button {
+    display: none !important;
+  }
+}
