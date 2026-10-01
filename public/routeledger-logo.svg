@@ -14,7 +14,7 @@
     </linearGradient>
   </defs>
 
-  <g transform="translate(12 10)">
+  <g transform="translate(12 13)">
     <!-- R body -->
     <path
       d="M8 10h80c29 0 51 7 66 22 13 13 20 30 20 50 0 22-7 39-21 52-10 9-22 15-37 19l36 47h-42l-44-60h24c16 0 28-4 36-11 8-7 12-17 12-30s-4-23-12-30c-8-7-20-10-37-10H34z"
@@ -64,9 +64,9 @@
       x="2"
       y="102"
       font-family="Arial, Helvetica, sans-serif"
-      font-size="18"
+      font-size="19"
       font-weight="600"
-      letter-spacing="5"
+      letter-spacing="4"
       fill="#64748b"
     >
       HOS TRIP PLANNING &amp; ELD
