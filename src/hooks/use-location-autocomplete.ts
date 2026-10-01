@@ -46,6 +46,8 @@ export function useLocationAutocomplete(query: string) {
           normalized,
           requestController.signal,
         )
+        if (requestController.signal.aborted) return
+
         setState({
           query: normalized,
           suggestions,
