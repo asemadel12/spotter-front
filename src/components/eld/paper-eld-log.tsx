@@ -112,21 +112,36 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
             <text x="350" y="128" textAnchor="middle">—</text>
             <text x="135" y="111" textAnchor="middle">—</text>
 
-            {remarks.map((remark, index) => (
+            {remarks.map((remark, index) => {
+              const lowerRemarksArea = index >= 4
+              const x = lowerRemarksArea ? 225 : 28
+              const y = lowerRemarksArea
+                ? 330 + (index - 4) * 8
+                : 294 + index * 8
+              return (
+                <text
+                  key={`${remark.second_of_day}-${remark.event_type}-${index}`}
+                  x={x}
+                  y={y}
+                  fontSize="5.8"
+                >
+                  {`${remark.time}  ${getEventLabel(remark.event_type)} — ${fitText(
+                    remark.location.label,
+                    lowerRemarksArea ? 34 : 46,
+                  )}`}
+                </text>
+              )
+            })}
+            {extraRemarkCount > 0 && (
               <text
-                key={`${remark.second_of_day}-${remark.event_type}-${index}`}
-                x="28"
-                y={294 + index * 8}
+                x={remarks.length > 4 ? 225 : 28}
+                y={
+                  remarks.length > 4
+                    ? 330 + (remarks.length - 4) * 8
+                    : 294 + remarks.length * 8
+                }
                 fontSize="5.8"
               >
-                {`${remark.time}  ${getEventLabel(remark.event_type)} — ${fitText(
-                  remark.location.label,
-                  46,
-                )}`}
-              </text>
-            ))}
-            {extraRemarkCount > 0 && (
-              <text x="28" y={294 + remarks.length * 8} fontSize="5.8">
                 {`+${extraRemarkCount} additional event${extraRemarkCount === 1 ? "" : "s"} in detailed remarks`}
               </text>
             )}
