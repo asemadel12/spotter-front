@@ -57,8 +57,12 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
             Filled on the log-sheet template supplied with the assessment.
           </p>
         </div>
-        <span className="text-xs font-medium text-slate-500">
-          {formatLogDate(log.date)} · {log.driving_distance_miles.toFixed(1)} mi · Time standard {log.timezone}
+        <span className="flex flex-wrap items-center gap-1 text-xs font-medium text-slate-500">
+          <span>{formatLogDate(log.date)}</span>
+          <span aria-hidden="true">·</span>
+          <span>{log.driving_distance_miles.toFixed(1)} mi</span>
+          <span aria-hidden="true">·</span>
+          <span>{log.timezone}</span>
         </span>
       </div>
 
