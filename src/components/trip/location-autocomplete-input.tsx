@@ -35,8 +35,10 @@ export function LocationAutocompleteInput({
   const [isFocused, setIsFocused] = useState(false)
   const [highlightedIndex, setHighlightedIndex] = useState(-1)
   const [suppressSuggestions, setSuppressSuggestions] = useState(false)
+  const autocompleteQuery =
+    isFocused && !suppressSuggestions ? value : ""
   const { suggestions, isLoading, hasSearched } =
-    useLocationAutocomplete(value)
+    useLocationAutocomplete(autocompleteQuery)
 
   const canShowResults =
     isFocused && !suppressSuggestions && value.trim().length >= 3
