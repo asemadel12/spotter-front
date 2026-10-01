@@ -1,34 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
   <defs>
-    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#123d8f"/>
-      <stop offset="0.62" stop-color="#0b4fb3"/>
-      <stop offset="1" stop-color="#082c68"/>
+    <linearGradient id="markNavy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f2f6d"/>
+      <stop offset="1" stop-color="#082b63"/>
     </linearGradient>
-    <linearGradient id="road" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0f2e67"/>
-      <stop offset="0.58" stop-color="#0b4aa3"/>
-      <stop offset="1" stop-color="#0a63df"/>
-    </linearGradient>
-    <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#33b8ff"/>
-      <stop offset="1" stop-color="#0b63f6"/>
+    <linearGradient id="roadBlue" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#0b4fb3"/>
+      <stop offset="0.55" stop-color="#0b63f6"/>
+      <stop offset="1" stop-color="#2ea8ff"/>
     </linearGradient>
   </defs>
-  <rect width="160" height="160" rx="30" fill="#ffffff"/>
+
+  <rect width="180" height="180" rx="36" fill="#ffffff"/>
+
   <path
-    d="M12 12h70c27 0 47 7 60 21 11 11 16 25 16 42 0 18-5 33-16 44-9 9-21 15-36 18l29 37H99l-33-43h18c15 0 26-3 33-10 7-6 10-15 10-27 0-11-3-20-10-26-7-6-18-9-33-9H32z"
-    fill="url(#navy)"
+    d="M16 18h78c28 0 49 7 63 21 12 12 18 28 18 47 0 20-6 37-19 48-9 8-20 14-34 17l34 44h-40l-42-57h23c15 0 26-3 34-10 7-7 11-16 11-29 0-12-4-22-11-28-8-7-19-10-35-10H41z"
+    fill="url(#markNavy)"
   />
+
+  <path d="M109 104l58 58h-41l-37-41z" fill="#0b63f6"/>
+
   <path
-    d="M14 149c16-32 33-58 51-77 20-22 43-38 69-49-20 17-37 36-51 58-15 23-27 46-35 68z"
-    fill="url(#road)"
+    d="M27 157C49 116 78 84 143 49"
+    fill="none"
+    stroke="url(#roadBlue)"
+    stroke-width="32"
+    stroke-linecap="round"
+    stroke-linejoin="round"
   />
+
   <path
-    d="M73 149c7-25 18-47 32-66 14-18 30-32 50-44-12 16-21 32-27 49l43 61h-40l-25-36c-5 11-8 23-11 36z"
-    fill="url(#cyan)"
+    d="M32 149C53 112 82 83 139 54"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="5"
+    stroke-linecap="round"
+    stroke-dasharray="14 14"
   />
-  <path d="M38 127l14-3-6 16-15 3z" fill="#ffffff"/>
-  <path d="M52 102l13-3-6 15-14 3z" fill="#ffffff"/>
-  <path d="M67 80l12-3-5 13-13 3z" fill="#ffffff"/>
 </svg>
