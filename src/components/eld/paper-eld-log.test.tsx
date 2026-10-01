@@ -10,12 +10,12 @@ describe("PaperEldLog", () => {
     render(<PaperEldLog log={log} locations={tripPlanFixture.locations} />)
 
     const paper = screen.getByTestId("provided-eld-paper")
-    const image = screen
-      .getByTestId("provided-eld-paper-svg")
-      .querySelector("image")
+    const image = screen.getByTestId("provided-eld-paper-image")
+    const canvas = screen.getByTestId("provided-eld-paper-canvas")
 
     expect(paper).toBeVisible()
-    expect(image).toHaveAttribute("href", "/blank-paper-log.png")
+    expect(canvas).toBeVisible()
+    expect(image).toHaveAttribute("src", "/blank-paper-log.png")
     expect(screen.getAllByTestId("paper-duty-trace-span").length).toBeGreaterThan(0)
     expect(screen.getByText("683.5 mi")).toBeVisible()
   })
