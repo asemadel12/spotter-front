@@ -42,9 +42,13 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
   const remarks = log.remarks.slice(0, 13)
   const extraRemarkCount = Math.max(0, log.remarks.length - remarks.length)
   const fromLabel =
-    log.remarks[0]?.location.label ?? locations.current_location.label
+    log.from_location_label ??
+    log.remarks[0]?.location.label ??
+    locations.current_location.label
   const toLabel =
-    log.remarks.at(-1)?.location.label ?? locations.dropoff_location.label
+    log.to_location_label ??
+    log.remarks.at(-1)?.location.label ??
+    locations.dropoff_location.label
 
   return (
     <section
