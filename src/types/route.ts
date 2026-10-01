@@ -9,6 +9,7 @@ export interface LocationSuggestion {
 export interface ResolvedLocation {
   input: string
   label: string
+  city_state?: string
   latitude: number
   longitude: number
 }
