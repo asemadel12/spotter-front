@@ -1,3 +1,4 @@
+import { useId } from "react"
 import { MapPin } from "lucide-react"
 
 import { getEventLabel } from "@/lib/eld"
@@ -9,14 +10,15 @@ interface EldRemarksProps {
 }
 
 export function EldRemarks({ remarks }: EldRemarksProps) {
+  const headingId = useId()
   const chronologicalRemarks = [...remarks].sort(
     (left, right) => left.second_of_day - right.second_of_day,
   )
 
   return (
-    <section className="border-t border-slate-300 p-5 sm:p-6" aria-labelledby="eld-remarks-heading">
+    <section className="border-t border-slate-300 p-5 sm:p-6" aria-labelledby={headingId}>
       <div className="flex items-center justify-between gap-3">
-        <h4 id="eld-remarks-heading" className="text-xs font-bold tracking-[0.16em] text-slate-700">
+        <h4 id={headingId} className="text-xs font-bold tracking-[0.16em] text-slate-700">
           REMARKS
         </h4>
         <span className="text-xs text-slate-500">Chronological event record</span>
