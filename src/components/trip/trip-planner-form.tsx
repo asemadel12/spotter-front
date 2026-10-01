@@ -151,6 +151,8 @@ export function TripPlannerForm({ isPending, onSubmit }: TripPlannerFormProps) {
                 min="0"
                 max="70"
                 step="0.1"
+                required
+                aria-required="true"
                 className="pl-9"
                 disabled={isPending}
                 aria-invalid={Boolean(errors.current_cycle_used_hours)}
