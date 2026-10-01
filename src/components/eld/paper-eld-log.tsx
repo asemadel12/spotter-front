@@ -67,27 +67,30 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
       </div>
 
       <div className="overflow-x-auto rounded-lg border border-slate-300 bg-white">
-        <svg
-          className="block h-auto min-w-[760px] w-full"
-          viewBox={`0 0 ${PAPER_WIDTH} ${PAPER_HEIGHT}`}
-          role="img"
-          aria-labelledby={titleId}
-          aria-describedby={descriptionId}
-          data-testid="provided-eld-paper-svg"
+        <div
+          className="relative min-w-[760px] w-full"
+          style={{ aspectRatio: `${PAPER_WIDTH} / ${PAPER_HEIGHT}` }}
+          data-testid="provided-eld-paper-canvas"
         >
+          <img
+            src="/blank-paper-log.png"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 block h-full w-full"
+            data-testid="provided-eld-paper-image"
+          />
+          <svg
+            className="absolute inset-0 block h-full w-full"
+            viewBox={`0 0 ${PAPER_WIDTH} ${PAPER_HEIGHT}`}
+            role="img"
+            aria-labelledby={titleId}
+            aria-describedby={descriptionId}
+            data-testid="provided-eld-paper-svg"
+          >
           <desc id={descriptionId}>
             Driver daily log using the assessment-provided paper template, with
             the date, route, miles, duty-status trace, totals, and remarks filled in.
           </desc>
-
-          <image
-            href="/blank-paper-log.png"
-            x="0"
-            y="0"
-            width={PAPER_WIDTH}
-            height={PAPER_HEIGHT}
-            preserveAspectRatio="none"
-          />
 
           <g
             fill="#111827"
@@ -192,7 +195,8 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
               />
             ))}
           </g>
-        </svg>
+          </svg>
+        </div>
       </div>
 
       <div className="sr-only">
