@@ -40,6 +40,23 @@ describe("TripPlannerForm", () => {
     expect(screen.getByText("Enter the drop-off location.")).toBeVisible()
   })
 
+  it("requires cycle hours even when the field was never focused", async () => {
+    const onSubmit = vi.fn()
+    const user = userEvent.setup()
+    render(<TripPlannerForm isPending={false} onSubmit={onSubmit} />)
+
+    await user.type(screen.getByLabelText("Current Location"), "Chicago, IL")
+    await user.type(screen.getByLabelText("Pickup Location"), "St. Louis, MO")
+    await user.type(screen.getByLabelText("Drop-off Location"), "Dallas, TX")
+    await user.click(screen.getByRole("button", { name: "Plan Trip" }))
+
+    expect(
+      await screen.findByText("Enter the cycle hours used."),
+    ).toBeVisible()
+    expect(screen.getByLabelText("Current Cycle Used (Hrs)")).toHaveValue(null)
+    expect(onSubmit).not.toHaveBeenCalled()
+  })
+
   it("rejects cycle hours below zero", async () => {
     render(<TripPlannerForm isPending={false} onSubmit={vi.fn()} />)
     const user = await fillValidForm("-0.5")
