@@ -153,19 +153,22 @@
     background: #ffffff !important;
   }
 
-  body * {
-    visibility: hidden !important;
+  .app-screen-only,
+  .trip-screen-results {
+    display: none !important;
   }
 
-  .trip-print-report,
-  .trip-print-report * {
-    visibility: visible !important;
+  .trip-layout {
+    display: block !important;
+  }
+
+  main {
+    max-width: none !important;
+    padding: 0 !important;
   }
 
   .trip-print-report {
     display: block !important;
-    position: absolute;
-    inset: 0;
     width: 100%;
     background: #ffffff;
     color: #0f172a;
