@@ -6,9 +6,21 @@ import type { ApiError, DrfValidationErrors } from "@/types/api"
 import type { TripPlanRequest } from "@/types/trip"
 
 export const tripPlanSchema = z.object({
-  current_location: z.string().trim().min(1, "Enter your current location."),
-  pickup_location: z.string().trim().min(1, "Enter the pickup location."),
-  dropoff_location: z.string().trim().min(1, "Enter the drop-off location."),
+  current_location: z
+    .string()
+    .trim()
+    .min(1, "Enter your current location.")
+    .max(255, "Current location must be 255 characters or fewer."),
+  pickup_location: z
+    .string()
+    .trim()
+    .min(1, "Enter the pickup location.")
+    .max(255, "Pickup location must be 255 characters or fewer."),
+  dropoff_location: z
+    .string()
+    .trim()
+    .min(1, "Enter the drop-off location.")
+    .max(255, "Drop-off location must be 255 characters or fewer."),
   current_cycle_used_hours: z
     .number({
       required_error: "Enter the cycle hours used.",
