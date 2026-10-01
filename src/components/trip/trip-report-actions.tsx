@@ -6,7 +6,7 @@ export function TripReportActions() {
   return (
     <div className="flex flex-wrap items-center justify-end gap-3">
       <p className="text-xs text-slate-500">
-        Print the complete trip, schedule, directions, and ELD logs.
+        Print the complete report. For a clean PDF, disable browser Headers and footers.
       </p>
       <Button
         type="button"
