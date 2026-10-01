@@ -200,7 +200,7 @@ function popupContent(title: string, label: string) {
 }
 
 function stopPopup(stop: PositionedRouteStop) {
-  const container = popupContent(stop.label, "En route")
+  const container = popupContent(stop.label, stop.locationLabel ?? "En route")
   const details = document.createElement("p")
   details.textContent = `${formatDateTime(stop.start)} · ${formatDuration(stop.durationSeconds)} · ${formatDistanceMiles(stop.distanceMeters)} into trip`
   container.append(details)
