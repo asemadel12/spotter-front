@@ -84,7 +84,7 @@ export function TripTimeline({ events }: TripTimelineProps) {
                     {event.distance_meters > 0 && (
                       <span>{formatDistanceMiles(event.distance_meters)}</span>
                     )}
-                    <span>{humanizeLocation(event.location)}</span>
+                    <span>{event.location_label ?? humanizeLocation(event.location)}</span>
                   </div>
                 </div>
               </li>
