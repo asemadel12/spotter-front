@@ -1,7 +1,6 @@
-import { LoaderCircle } from "lucide-react"
+import { LoaderCircle, type LucideIcon } from "lucide-react"
 import type { KeyboardEvent, Ref } from "react"
 import { useId, useState } from "react"
-import type { LucideIcon } from "lucide-react"
 
 import { Input } from "@/components/ui/input"
 import { useLocationAutocomplete } from "@/hooks/use-location-autocomplete"
@@ -35,17 +34,19 @@ export function LocationAutocompleteInput({
   const listboxId = useId()
   const [isFocused, setIsFocused] = useState(false)
   const [highlightedIndex, setHighlightedIndex] = useState(-1)
+  const [suppressSuggestions, setSuppressSuggestions] = useState(false)
   const { suggestions, isLoading, hasSearched } =
     useLocationAutocomplete(value)
 
-  const canShowResults = isFocused && value.trim().length >= 3
+  const canShowResults =
+    isFocused && !suppressSuggestions && value.trim().length >= 3
   const isOpen =
     canShowResults && (isLoading || hasSearched || suggestions.length > 0)
 
   const selectSuggestion = (suggestion: LocationSuggestion) => {
     onChange(suggestion.label)
     setHighlightedIndex(-1)
-    setIsFocused(false)
+    setSuppressSuggestions(true)
   }
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -95,8 +96,12 @@ export function LocationAutocompleteInput({
         onChange={(event) => {
           onChange(event.target.value)
           setHighlightedIndex(-1)
+          setSuppressSuggestions(false)
         }}
-        onFocus={() => setIsFocused(true)}
+        onFocus={() => {
+          setIsFocused(true)
+          setSuppressSuggestions(false)
+        }}
         onBlur={() => {
           setIsFocused(false)
           setHighlightedIndex(-1)
