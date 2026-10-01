@@ -1,5 +1,11 @@
 export type Coordinate = [longitude: number, latitude: number]
 
+export interface LocationSuggestion {
+  label: string
+  latitude: number
+  longitude: number
+}
+
 export interface ResolvedLocation {
   input: string
   label: string
