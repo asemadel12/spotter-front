@@ -15,7 +15,7 @@ describe("PaperEldLog", () => {
       .querySelector("image")
 
     expect(paper).toBeVisible()
-    expect(image).toHaveAttribute("href", "/blank-paper-log.svg")
+    expect(image).toHaveAttribute("href", "/blank-paper-log.png")
     expect(screen.getAllByTestId("paper-duty-trace-span").length).toBeGreaterThan(0)
     expect(screen.getByText("683.5 mi")).toBeVisible()
   })
