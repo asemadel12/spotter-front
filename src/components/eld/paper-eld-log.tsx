@@ -48,7 +48,7 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
       aria-labelledby={titleId}
       data-testid="provided-eld-paper"
     >
-      <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
+      <div className="eld-paper-meta mb-3 flex flex-wrap items-baseline justify-between gap-2">
         <div>
           <h4 id={titleId} className="font-semibold text-slate-950">
             FMCSA paper log
