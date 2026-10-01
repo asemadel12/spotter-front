@@ -102,7 +102,7 @@ Trip form
   -> print-ready complete trip report / Save as PDF
 ```
 
-The frontend does not recalculate HOS legality. The backend-provided schedule and daily logs are treated as authoritative.
+The frontend does not recalculate HOS legality. The backend-provided schedule and daily logs are treated as authoritative. Location suggestions are optional: if autocomplete returns no matches or fails, the user can continue typing any city, street, or full address and submit the trip normally.
 
 ## Production build
 
