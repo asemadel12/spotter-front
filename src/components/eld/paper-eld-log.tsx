@@ -11,8 +11,8 @@ interface PaperEldLogProps {
   locations: TripLocations
 }
 
-const PAPER_WIDTH = 515
-const PAPER_HEIGHT = 486
+const PAPER_WIDTH = 513
+const PAPER_HEIGHT = 518
 const PAPER_GRAPH = {
   graphLeft: 64,
   graphWidth: 390,
