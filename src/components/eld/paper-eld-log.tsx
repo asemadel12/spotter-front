@@ -73,7 +73,7 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
           data-testid="provided-eld-paper-canvas"
         >
           <img
-            src="/blank-paper-log.png"
+            src="/blank-paper-log.svg"
             alt=""
             aria-hidden="true"
             className="absolute inset-0 block h-full w-full"
