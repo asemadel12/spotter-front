@@ -48,6 +48,7 @@ export interface RouteStop {
   type: RouteStopType
   distanceMeters: number
   label: string
+  locationLabel?: string
   start: string
   durationSeconds: number
 }
