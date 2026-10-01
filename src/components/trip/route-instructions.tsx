@@ -44,7 +44,13 @@ export function RouteInstructions({ legs }: RouteInstructionsProps) {
                   {formatDistanceMiles(leg.distance_meters)} · {formatDuration(leg.duration_seconds)}
                 </span>
               </span>
-              <ChevronDown className="size-4 text-slate-400 transition group-open:rotate-180" />
+              <span className="ml-auto inline-flex items-center gap-2 text-xs font-semibold text-blue-700">
+                <span className="group-open:hidden">Show steps</span>
+                <span className="hidden group-open:inline">Hide steps</span>
+                <span className="flex size-8 items-center justify-center rounded-full border border-blue-200 bg-blue-50 text-blue-700 transition group-open:bg-blue-100">
+                  <ChevronDown className="size-4 transition-transform duration-200 group-open:rotate-180" aria-hidden="true" />
+                </span>
+              </span>
             </summary>
             <ol className="border-t border-slate-100 px-4 py-2">
               {leg.steps.map((step, stepIndex) => (
