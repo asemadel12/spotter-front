@@ -41,6 +41,7 @@ export function deriveRouteStops(events: HosEvent[]): RouteStop[] {
       type,
       distanceMeters: cumulativeDistance,
       label: STOP_LABELS[type],
+      locationLabel: event.location_label,
       start: event.start,
       durationSeconds: event.duration_seconds,
     })
