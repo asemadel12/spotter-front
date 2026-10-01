@@ -1,9 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Clock3, Flag, MapPin, Package, Route } from "lucide-react"
 import { useState } from "react"
-import { useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 
 import { ApiRequestError } from "@/api/client"
+import { LocationAutocompleteInput } from "@/components/trip/location-autocomplete-input"
 import { Alert } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -32,7 +33,7 @@ const fields = [
   {
     name: "current_location" as const,
     label: "Current Location",
-    placeholder: "Chicago, IL",
+    placeholder: "233 S Wacker Dr, Chicago, IL",
     icon: MapPin,
   },
   {
@@ -53,6 +54,7 @@ export function TripPlannerForm({ isPending, onSubmit }: TripPlannerFormProps) {
   const [requestError, setRequestError] = useState<string | null>(null)
   const {
     register,
+    control,
     handleSubmit,
     reset,
     setError,
@@ -105,21 +107,27 @@ export function TripPlannerForm({ isPending, onSubmit }: TripPlannerFormProps) {
           {fields.map(({ name, label, placeholder, icon: Icon }) => (
             <div className="space-y-2" key={name}>
               <Label htmlFor={name}>{label}</Label>
-              <div className="relative">
-                <Icon
-                  className="pointer-events-none absolute left-3 top-3.5 size-4 text-slate-400"
-                  aria-hidden="true"
-                />
-                <Input
-                  id={name}
-                  className="pl-9"
-                  placeholder={placeholder}
-                  disabled={isPending}
-                  aria-invalid={Boolean(errors[name])}
-                  aria-describedby={`${name}-error`}
-                  {...register(name)}
-                />
-              </div>
+              <Controller
+                name={name}
+                control={control}
+                render={({ field }) => (
+                  <LocationAutocompleteInput
+                    id={name}
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    inputRef={field.ref}
+                    placeholder={placeholder}
+                    disabled={isPending}
+                    invalid={Boolean(errors[name])}
+                    describedBy={`${name}-help ${name}-error`}
+                    icon={Icon}
+                  />
+                )}
+              />
+              <p id={`${name}-help`} className="text-xs text-slate-500">
+                City, street, or full address. Suggestions are optional.
+              </p>
               {errors[name] && (
                 <p id={`${name}-error`} className="text-xs text-red-600">
                   {errors[name]?.message}
