@@ -1,4 +1,4 @@
-import type { UseFormSetError } from "react-hook-form"
+import type { DefaultValues, UseFormSetError } from "react-hook-form"
 import { z } from "zod"
 
 import { ApiRequestError } from "@/api/client"
@@ -15,11 +15,11 @@ export const tripPlanSchema = z.object({
     .max(70, "Cycle hours cannot exceed 70."),
 })
 
-export const TRIP_PLAN_DEFAULT_VALUES: TripPlanRequest = {
+export const TRIP_PLAN_DEFAULT_VALUES: DefaultValues<TripPlanRequest> = {
   current_location: "",
   pickup_location: "",
   dropoff_location: "",
-  current_cycle_used_hours: 0,
+  current_cycle_used_hours: undefined,
 }
 
 export const SAMPLE_TRIP: TripPlanRequest = {
