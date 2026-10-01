@@ -7,38 +7,39 @@ const AUTOCOMPLETE_DELAY_MS = 300
 const MIN_QUERY_LENGTH = 3
 
 interface LocationAutocompleteState {
+  query: string
   suggestions: LocationSuggestion[]
   isLoading: boolean
   hasSearched: boolean
 }
 
-export function useLocationAutocomplete(query: string): LocationAutocompleteState {
+const EMPTY_STATE: Omit<LocationAutocompleteState, "query"> = {
+  suggestions: [],
+  isLoading: false,
+  hasSearched: false,
+}
+
+export function useLocationAutocomplete(query: string) {
+  const normalized = query.trim()
   const [state, setState] = useState<LocationAutocompleteState>({
-    suggestions: [],
-    isLoading: false,
-    hasSearched: false,
+    query: "",
+    ...EMPTY_STATE,
   })
 
   useEffect(() => {
-    const normalized = query.trim()
-    if (normalized.length < MIN_QUERY_LENGTH) {
-      setState({
-        suggestions: [],
-        isLoading: false,
-        hasSearched: false,
-      })
-      return
-    }
+    if (normalized.length < MIN_QUERY_LENGTH) return
 
     let controller: AbortController | null = null
     const timer = window.setTimeout(async () => {
       const requestController = new AbortController()
       controller = requestController
-      setState((current) => ({
-        ...current,
+
+      setState({
+        query: normalized,
+        suggestions: [],
         isLoading: true,
         hasSearched: false,
-      }))
+      })
 
       try {
         const suggestions = await autocompleteLocations(
@@ -46,6 +47,7 @@ export function useLocationAutocomplete(query: string): LocationAutocompleteStat
           requestController.signal,
         )
         setState({
+          query: normalized,
           suggestions,
           isLoading: false,
           hasSearched: true,
@@ -53,6 +55,7 @@ export function useLocationAutocomplete(query: string): LocationAutocompleteStat
       } catch {
         if (requestController.signal.aborted) return
         setState({
+          query: normalized,
           suggestions: [],
           isLoading: false,
           hasSearched: true,
@@ -64,7 +67,18 @@ export function useLocationAutocomplete(query: string): LocationAutocompleteStat
       window.clearTimeout(timer)
       controller?.abort()
     }
-  }, [query])
+  }, [normalized])
 
-  return state
+  if (
+    normalized.length < MIN_QUERY_LENGTH ||
+    state.query !== normalized
+  ) {
+    return EMPTY_STATE
+  }
+
+  return {
+    suggestions: state.suggestions,
+    isLoading: state.isLoading,
+    hasSearched: state.hasSearched,
+  }
 }
