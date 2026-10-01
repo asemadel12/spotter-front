@@ -147,4 +147,24 @@ describe("TripResults", () => {
     await user.click(screen.getByRole("tab", { name: "Daily ELD Logs" }))
     expect(screen.getByText("1 ELD log sheet generated")).toBeVisible()
   })
+
+  it("shows resolved city-state labels for en-route duty changes", () => {
+    const result = {
+      ...tripPlanFixture,
+      schedule: {
+        ...tripPlanFixture.schedule,
+        events: tripPlanFixture.schedule.events.map((event) =>
+          event.type === "BREAK"
+            ? { ...event, location_label: "Springfield, MO" }
+            : event,
+        ),
+      },
+    }
+
+    render(<TripResults result={result} />)
+
+    const panel = screen.getByRole("tabpanel", { name: "Schedule" })
+    expect(within(panel).getByText("Springfield, MO")).toBeVisible()
+  })
+
 })
