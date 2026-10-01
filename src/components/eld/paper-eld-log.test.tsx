@@ -15,7 +15,7 @@ describe("PaperEldLog", () => {
 
     expect(paper).toBeVisible()
     expect(canvas).toBeVisible()
-    expect(image).toHaveAttribute("src", "/blank-paper-log.png")
+    expect(image).toHaveAttribute("src", "/blank-paper-log.svg")
     expect(screen.getAllByTestId("paper-duty-trace-span").length).toBeGreaterThan(0)
     expect(screen.getByText("683.5 mi")).toBeVisible()
   })
