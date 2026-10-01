@@ -16,8 +16,8 @@ const PAPER_HEIGHT = 518
 const PAPER_GRAPH = {
   graphLeft: 64,
   graphWidth: 390,
-  graphTop: 184,
-  rowHeight: 17.25,
+  graphTop: 185,
+  rowHeight: 19.5,
 } as const
 
 const totalKeys: Record<DutyStatus, keyof DailyLogTotals> = {
@@ -28,10 +28,10 @@ const totalKeys: Record<DutyStatus, keyof DailyLogTotals> = {
 }
 
 const totalRows: Array<{ status: DutyStatus; y: number }> = [
-  { status: "OFF_DUTY", y: 193 },
-  { status: "SLEEPER_BERTH", y: 210 },
-  { status: "DRIVING", y: 227 },
-  { status: "ON_DUTY_NOT_DRIVING", y: 244 },
+  { status: "OFF_DUTY", y: 198 },
+  { status: "SLEEPER_BERTH", y: 217.5 },
+  { status: "DRIVING", y: 237 },
+  { status: "ON_DUTY_NOT_DRIVING", y: 256.5 },
 ]
 
 export function PaperEldLog({ log, locations }: PaperEldLogProps) {
@@ -41,6 +41,10 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
   const [year, month, day] = log.date.split("-")
   const remarks = log.remarks.slice(0, 13)
   const extraRemarkCount = Math.max(0, log.remarks.length - remarks.length)
+  const fromLabel =
+    log.remarks[0]?.location.label ?? locations.current_location.label
+  const toLabel =
+    log.remarks.at(-1)?.location.label ?? locations.dropoff_location.label
 
   return (
     <section
@@ -98,22 +102,17 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
             fontSize="7"
             data-testid="paper-log-fields"
           >
-            <text x="178" y="31" textAnchor="middle">{month}</text>
-            <text x="205" y="31" textAnchor="middle">{day}</text>
-            <text x="236" y="31" textAnchor="middle">{year}</text>
+            <text x="178" y="33" textAnchor="middle" fontSize="5.2">{month}</text>
+            <text x="205" y="33" textAnchor="middle" fontSize="5.2">{day}</text>
+            <text x="236" y="33" textAnchor="middle" fontSize="5.2">{year}</text>
 
-            <text x="67" y="46">{fitText(locations.current_location.label, 31)}</text>
-            <text x="258" y="46">{fitText(locations.dropoff_location.label, 31)}</text>
+            <text x="96" y="45" fontSize="6">{fitText(fromLabel, 25)}</text>
+            <text x="280" y="45" fontSize="6">{fitText(toLabel, 27)}</text>
 
             <text x="94" y="80" textAnchor="middle" fontSize="9" fontWeight="700">
               {log.driving_distance_miles.toFixed(1)}
             </text>
-            <text x="181" y="80" textAnchor="middle" fontSize="8">—</text>
 
-            <text x="350" y="85" textAnchor="middle">—</text>
-            <text x="350" y="107" textAnchor="middle">—</text>
-            <text x="350" y="128" textAnchor="middle">—</text>
-            <text x="135" y="111" textAnchor="middle">—</text>
 
             {remarks.map((remark, index) => {
               const lowerRemarksArea = index >= 4
@@ -149,7 +148,6 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
               </text>
             )}
 
-            <text x="75" y="349" fontSize="6.5">—</text>
 
             {totalRows.map(({ status, y }) => (
               <text
