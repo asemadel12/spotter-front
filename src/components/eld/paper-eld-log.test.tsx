@@ -43,4 +43,38 @@ describe("PaperEldLog", () => {
       "Amarillo, TX",
     )
   })
+
+  it("uses each log day's first and last recorded locations for From and To", () => {
+    const source = tripPlanFixture.daily_logs.logs[0]
+    const log = {
+      ...source,
+      remarks: [
+        {
+          ...source.remarks[0],
+          location: { ref: "current_location", label: "Chicago, IL" },
+        },
+        {
+          ...source.remarks[1],
+          location: { ref: "pickup_location", label: "St. Louis, MO" },
+        },
+      ],
+    }
+
+    render(<PaperEldLog log={log} locations={tripPlanFixture.locations} />)
+
+    const fields = screen.getByTestId("paper-log-fields")
+    expect(fields).toHaveTextContent("Chicago, IL")
+    expect(fields).toHaveTextContent("St. Louis, MO")
+    expect(fields).not.toHaveTextContent("Dallas, Dallas County, Texas, USA")
+  })
+
+  it("draws duty statuses on the exact row centers of the supplied grid", () => {
+    const log = tripPlanFixture.daily_logs.logs[0]
+    render(<PaperEldLog log={log} locations={tripPlanFixture.locations} />)
+
+    const spans = screen.getAllByTestId("paper-duty-trace-span")
+    expect(spans[0]).toHaveAttribute("y1", "194.75")
+    expect(spans[0]).toHaveAttribute("y2", "194.75")
+  })
+
 })
