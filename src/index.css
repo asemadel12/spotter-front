@@ -201,9 +201,13 @@
     max-width: 100% !important;
   }
 
-  .trip-print-report .eld-paper-meta,
-  .trip-print-report .eld-digital-remarks {
+  .trip-print-report .eld-paper-meta {
     display: none !important;
+  }
+
+  .trip-print-report .eld-digital-remarks {
+    margin-top: 4mm !important;
+    font-size: 9pt !important;
   }
 
   .trip-print-report [data-testid="provided-eld-paper"] {
