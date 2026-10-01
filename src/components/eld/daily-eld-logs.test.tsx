@@ -163,4 +163,38 @@ describe("DailyEldLogs", () => {
     expect(screen.getByText("00:00")).toBeVisible()
     expect(screen.getByText("Sleeper Rest")).toBeVisible()
   })
+
+  it("shows resolved city-state labels for en-route duty changes", () => {
+    const source = tripPlanFixture.daily_logs.logs[0]
+    const enriched: DailyLogsResult = {
+      ...tripPlanFixture.daily_logs,
+      logs: [
+        {
+          ...source,
+          remarks: source.remarks.map((remark) => {
+            if (remark.event_type === "BREAK") {
+              return {
+                ...remark,
+                location: { ref: "en_route", label: "Springfield, MO" },
+              }
+            }
+            if (remark.event_type === "FUEL") {
+              return {
+                ...remark,
+                location: { ref: "en_route", label: "McAlester, OK" },
+              }
+            }
+            return remark
+          }),
+        },
+        ...tripPlanFixture.daily_logs.logs.slice(1),
+      ],
+    }
+
+    renderLogs(enriched)
+
+    expect(screen.getAllByText("Springfield, MO").length).toBeGreaterThan(0)
+    expect(screen.getAllByText("McAlester, OK").length).toBeGreaterThan(0)
+  })
+
 })
