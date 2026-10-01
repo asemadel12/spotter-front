@@ -1,6 +1,7 @@
 import { useId } from "react"
 
 import { buildDutyTrace, getEventLabel } from "@/lib/eld"
+import { formatLogDate } from "@/lib/formatting"
 import type { DailyLog, DailyLogTotals } from "@/types/eld"
 import type { DutyStatus } from "@/types/hos"
 import type { TripLocations } from "@/types/trip"
@@ -57,7 +58,7 @@ export function PaperEldLog({ log, locations }: PaperEldLogProps) {
           </p>
         </div>
         <span className="text-xs font-medium text-slate-500">
-          Time standard {log.timezone}
+          {formatLogDate(log.date)} · {log.driving_distance_miles.toFixed(1)} mi · Time standard {log.timezone}
         </span>
       </div>
 
