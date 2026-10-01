@@ -115,7 +115,10 @@ export function TripPrintReport({ result }: TripPrintReportProps) {
       </section>
 
       {result.daily_logs.logs.map((log) => (
-        <section className="trip-print-section trip-print-page-break" key={log.date}>
+        <section
+          className="trip-print-section trip-print-page-break trip-print-eld-page"
+          key={log.date}
+        >
           <DailyLogSheet log={log} locations={result.locations} />
         </section>
       ))}
