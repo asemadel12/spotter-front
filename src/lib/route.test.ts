@@ -13,6 +13,7 @@ import type { HosEvent, RouteGeometry } from "@/types/trip"
 const event = (
   type: HosEvent["type"],
   distanceMeters?: number,
+  locationLabel?: string,
 ): HosEvent => ({
   type,
   status: type === "DRIVING" ? "DRIVING" : "OFF_DUTY",
@@ -21,6 +22,7 @@ const event = (
   duration_seconds: 3_600,
   distance_meters: distanceMeters ?? 0,
   location: "en_route",
+  location_label: locationLabel,
   reason: "Test event",
 })
 
@@ -56,6 +58,16 @@ describe("route stop derivation", () => {
     expect(types).not.toContain("PICKUP")
     expect(types).not.toContain("DROPOFF")
   })
+
+  it("keeps reverse-geocoded city-state labels on stop markers", () => {
+    const [stop] = deriveRouteStops([
+      event("DRIVING", 100),
+      event("FUEL", 0, "Amarillo, TX"),
+    ])
+
+    expect(stop.locationLabel).toBe("Amarillo, TX")
+  })
+
 })
 
 describe("route geometry positioning", () => {
